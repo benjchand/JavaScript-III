@@ -50,6 +50,16 @@
   }
   // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
  
+  function Hero (heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.superpower = heroAttributes.superpower;
+  };
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.powerHit = function() {
+    return `${this.name} uses ${this.superpower}!`;
+  }
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -109,6 +119,52 @@
     language: 'Elvish',
   });
 
+  const hero = new Humanoid ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 15,
+    name: 'Commoner',
+    team: 'Team Hero',
+    weapons: [
+      'Swoard of Destiny',
+      'Fists of Brass Knuckles',
+      'Big Rock',
+    ],
+    language: 'Common Tongue',
+    superpower: 'POWER OF THE GODS!!!'
+  });
+
+  const villain = new Humanoid ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 6,
+    },
+    healthPoints: 35,
+    name: 'BBEG',
+    team: 'Team Anti-Hero',
+    weapons: [
+      'Death Claws',
+      'Death Flaming Sword',
+      'Biggest Rock',
+    ],
+    language: 'The Screams of Death',
+  });
+
+
+  // Stretch task: 
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -119,9 +175,13 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(hero.destroy()); // Sir Mustachio was removed from the game.
+  console.log(hero.takeDamage()); // Sir Mustachio was removed from the game.
+  console.log(villain.greet()); // Lilith offers a greeting in Elvish.
+  console.log(hero.greet()); // Lilith offers a greeting in Elvish.
+  console.log(hero.weapons); // Staff of Shamalama
+  console.log(villain.weapons); // Staff of Shamalama
+  console.log(hero.powerHit); // Staff of Shamalama
 
 
-  // Stretch task: 
-  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
